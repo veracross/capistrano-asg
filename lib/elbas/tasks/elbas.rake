@@ -7,12 +7,11 @@ namespace :elbas do
     set :aws_region,            fetch(:aws_region,            ENV['AWS_REGION'])
 
     Elbas::AMI.create do |ami|
-      p "ELBAS: Created AMI: #{ami.aws_counterpart.id}"
+      puts "ELBAS: Created AMI: #{ami.aws_counterpart.id}"
       Elbas::LaunchConfiguration.create(ami) do |lc|
-        p "ELBAS: Created Launch Configuration: #{lc.aws_counterpart.name}"
+        puts "ELBAS: Created Launch Configuration: #{lc.aws_counterpart.name}"
         lc.attach_to_autoscale_group!
       end
     end
-
   end
 end
