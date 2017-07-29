@@ -1,23 +1,25 @@
-# ELBAS (Elastic Load Balancer & AutoScaling)
+# capistrano-asg
 
-ELBAS was written to ease the deployment of Rails applications to AWS AutoScale groups. ELBAS will:
+This is a fork of [lserman/capistrano-elbas](https://github.com/lserman/capistrano-elbas), updated with new features and Capistrano 3 conventions.
+
+capistrano-asg was written to ease the deployment of Rails applications to AWS AutoScale groups. capistrano-asg will:
 
 - Deploy your code to each running instance connected to a given AutoScale group
 - After deployment, create an AMI from one of the running instances
 - Attach the AMI with the new code to a new AWS Launch Configuration
 - Update your AutoScale group to use the new launch configuration
-- Delete any old AMIs created by ELBAS
-- Delete any old launch configurations created by ELBAS
+- Delete any old AMIs created by capistrano-asg
+- Delete any old launch configurations created by capistrano-asg
 
 This ensures that your current and future servers will be running the newly deployed code.
 
 ## Installation
 
-`gem 'elbas'`
+`gem 'capistrano-asg'`
 
 Add this statement to your Capfile:
 
-`require 'elbas/capistrano'`
+`require 'capistrano/asg'`
 
 ## Configuration
 
@@ -63,16 +65,16 @@ regions.each do |region|
 end
 ```
 
-That's it! Run `cap production deploy`. ELBAS will print the following log statements during your
-deployment:
+That's it! Run `cap production deploy`. The following log statements are printed
+during deployment:
 
 ```
-"ELBAS: Adding server: ec2-XX-XX-XX-XXX.compute-1.amazonaws.com"
-"ELBAS: Creating EC2 AMI from i-123abcd"
-"ELBAS: Created AMI: ami-123456"
-"ELBAS: Creating an EC2 Launch Configuration for AMI: ami-123456"
-"ELBAS: Created Launch Configuration: elbas-lc-ENVIRONMENT-UNIX_TIMESTAMP"
-"ELBAS: Attaching Launch Configuration to AutoScale Group"
-"ELBAS: Deleting old launch configuration: elbas-lc-production-123456"
-"ELBAS: Deleting old image: ami-999999"
+Autoscaling: Adding server: ec2-XX-XX-XX-XXX.compute-1.amazonaws.com
+Autoscaling: Creating EC2 AMI from i-123abcd
+Autoscaling: Created AMI: ami-123456
+Autoscaling: Creating an EC2 Launch Configuration for AMI: ami-123456
+Autoscaling: Created Launch Configuration: elbas-lc-ENVIRONMENT-UNIX_TIMESTAMP
+Autoscaling: Attaching Launch Configuration to AutoScale Group
+Autoscaling: Deleting old launch configuration: elbas-lc-production-123456
+Autoscaling: Deleting old image: ami-999999
 ```

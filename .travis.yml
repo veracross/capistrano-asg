@@ -1,6 +1,7 @@
 language: ruby
 cache: bundler
 rvm:
+- 2.3.3
 - 2.4.1
 sudo: false
 env:
@@ -8,9 +9,7 @@ env:
 deploy:
   provider: rubygems
   gem:
-    master: elbas
+    master: capistrano-asg
   on:
-    repo: lserman/capistrano-elbas
+    repo: sixfeetover/capistrano-asg
     branch: master
-  api_key:
-    secure: gRiZBVBq+/AtMoOeSsMlnCLawQVzN/SVXyOC7+5gni8iKPGDpXL+CBrUv410WStBmA2c4SYn9lNmeLOea31TOA0yIMnjfjA36jPNKzKWThRb9NuUzV8ySGqBcqp1YhvZta46Jv+d3HovGgSJ0aw5tCSfB+gPdwNvkFvqe+zIy3Y=

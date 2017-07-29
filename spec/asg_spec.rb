@@ -1,7 +1,6 @@
-describe 'ELBAS' do
-
+describe 'Capistrano::Asg' do
   before do
-    allow_any_instance_of(Elbas::AWSResource).to receive(:autoscaling_group_name) { 'production' }
+    allow_any_instance_of(Capistrano::Asg::AWSResource).to receive(:autoscaling_group_name) { 'production' }
     webmock :get, /security-credentials/ => 'security-credentials.200.json'
     webmock(:post, %r{autoscaling.(.*).amazonaws.com\/\z} => 'DescribeAutoScalingGroups.200.xml') { Hash[body: /Action=DescribeAutoScalingGroups/] }
     webmock(:post, %r{ec2.(.*).amazonaws.com\/\z} => 'DescribeImages.200.xml') { Hash[body: /Action=DescribeImages/] }
@@ -20,7 +19,7 @@ describe 'ELBAS' do
 
   let!(:ami) do
     _ami = nil
-    Elbas::AMI.create { |ami| _ami = ami }
+    Capistrano::Asg::AMI.create { |ami| _ami = ami }
     _ami
   end
 
@@ -49,7 +48,7 @@ describe 'ELBAS' do
   describe 'Launch configuration creation & cleanup' do
     let!(:launch_configuration) do
       _lc = nil
-      Elbas::LaunchConfiguration.create(ami) { |lc| _lc = lc }
+      Capistrano::Asg::LaunchConfiguration.create(ami) { |lc| _lc = lc }
       _lc
     end
 
