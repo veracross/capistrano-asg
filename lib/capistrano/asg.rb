@@ -49,7 +49,7 @@ def autoscale(groupname, *args)
   end
 
   if asg_instances.count > 0
-    after('deploy', 'asg:scale')
+    after('deploy:finishing', 'asg:scale')
   else
     puts 'Autoscaling: AMI could not be created because no running instances were found.\
       Is your autoscale group name correct?'
