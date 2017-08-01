@@ -32,6 +32,10 @@ def autoscale(groupname, *args)
   asg_instances = autoscaling_group.instances
 
   set :aws_autoscale_group, groupname
+  region = fetch(:aws_region)
+  regions = fetch(:regions, {})
+  (regions[region] ||= []) << groupname
+  set :regions, regions
 
   asg_instances.each do |asg_instance|
     if asg_instance.health_status != 'Healthy'
