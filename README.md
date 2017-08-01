@@ -73,8 +73,8 @@ Autoscaling: Adding server: ec2-XX-XX-XX-XXX.compute-1.amazonaws.com
 Autoscaling: Creating EC2 AMI from i-123abcd
 Autoscaling: Created AMI: ami-123456
 Autoscaling: Creating an EC2 Launch Configuration for AMI: ami-123456
-Autoscaling: Created Launch Configuration: elbas-lc-ENVIRONMENT-UNIX_TIMESTAMP
+Autoscaling: Created Launch Configuration: cap-asg-lc-ENVIRONMENT-UNIX_TIMESTAMP
 Autoscaling: Attaching Launch Configuration to AutoScale Group
-Autoscaling: Deleting old launch configuration: elbas-lc-production-123456
+Autoscaling: Deleting old launch configuration: cap-asg-lc-production-123456
 Autoscaling: Deleting old image: ami-999999
 ```

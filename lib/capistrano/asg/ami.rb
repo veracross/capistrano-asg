@@ -8,8 +8,8 @@ module Capistrano
         ami = new
         ami.cleanup do
           ami.save
-          ami.tag 'Deployed-with' => 'ELBAS'
-          ami.tag 'ELBAS-Deploy-group' => ami.autoscaling_group_name
+          ami.tag 'deployed-with' => 'cap-asg'
+          ami.tag 'cap-asg-deploy-group' => ami.autoscaling_group_name
           yield ami
         end
       end
@@ -40,7 +40,7 @@ module Capistrano
 
       def trash
         ec2_resource.images(owners: ['self']).to_a.select do |ami|
-          deployed_with_elbas? ami
+          deployed_with_asg? ami
         end
       end
 

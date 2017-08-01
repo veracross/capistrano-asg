@@ -1,7 +1,7 @@
 module Capistrano
   module Asg
     module Retryable
-      def with_retry(max: fetch(:elbas_retry_max, 3), delay: fetch(:elbas_retry_delay, 5))
+      def with_retry(max: fetch(:asg_retry_max, 3), delay: fetch(:asg_retry_delay, 5))
         tries ||= 0
         tries += 1
         yield

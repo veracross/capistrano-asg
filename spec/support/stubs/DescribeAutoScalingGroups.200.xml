@@ -8,7 +8,7 @@
         <AutoScalingGroupName>production</AutoScalingGroupName>
         <Instances>
           <member>
-            <LaunchConfigurationName>ELBAS-production-production-LC-1234567890</LaunchConfigurationName>
+            <LaunchConfigurationName>cap-asg-production-production-lc-1234567890</LaunchConfigurationName>
             <LifecycleState>InService</LifecycleState>
             <InstanceId>i-1a2b3c4d</InstanceId>
             <ProtectedFromScaleIn>false</ProtectedFromScaleIn>

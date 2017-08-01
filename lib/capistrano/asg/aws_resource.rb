@@ -33,10 +33,10 @@ module Capistrano
         "#{str}-#{Time.now.to_i}"
       end
 
-      def deployed_with_elbas?(resource)
+      def deployed_with_asg?(resource)
         return false if resource.tags.empty?
-        resource.tags.any? { |k| k.key == 'Deployed-with' && k.value == 'ELBAS' } &&
-          resource.tags.any? { |k| k.key == 'ELBAS-Deploy-group' && k.value == autoscaling_group_name }
+        resource.tags.any? { |k| k.key == 'deployed-with' && k.value == 'cap-asg' } &&
+          resource.tags.any? { |k| k.key == 'cap-asg-deploy-group' && k.value == autoscaling_group_name }
       end
     end
   end

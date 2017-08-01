@@ -48,20 +48,20 @@ module Capistrano
       private
 
       def name
-        timestamp "ELBAS-#{environment}-#{autoscaling_group_name}-LC"
+        timestamp "cap-asg-#{environment}-#{autoscaling_group_name}-lc"
       end
 
       def instance_size
         fetch(:aws_autoscale_instance_size, 'm1.small')
       end
 
-      def deployed_with_elbas?(lc)
-        lc.name.include? "ELBAS-#{environment}-#{autoscaling_group_name}-LC"
+      def deployed_with_asg?(lc)
+        lc.name.include? "cap-asg-#{environment}-#{autoscaling_group_name}-lc"
       end
 
       def trash
         autoscaling_resource.launch_configurations.to_a.select do |lc|
-          deployed_with_elbas? lc
+          deployed_with_asg? lc
         end
       end
     end

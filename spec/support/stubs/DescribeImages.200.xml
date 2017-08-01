@@ -30,11 +30,11 @@
       <virtualizationType>paravirtual</virtualizationType>
       <tagSet>
          <item>
-            <key>Deployed-with</key>
-            <value>ELBAS</value>
+            <key>deployed-with</key>
+            <value>cap-asg</value>
          </item>
          <item>
-            <key>ELBAS-Deploy-group</key>
+            <key>cap-asg-deploy-group</key>
             <value>production</value>
          </item>
        </tagSet>
