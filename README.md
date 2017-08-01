@@ -65,6 +65,22 @@ regions.each do |region|
 end
 ```
 
+The name of the newly created launch configurations are available via `fetch(:asg_launch_config)`.
+This is a two-dimensional hash with region and autoscaling group name as keys.
+You can output these or store them as necessary in an `after 'deploy:finished'` hook.
+An example value is:
+
+```
+{
+  'us-east-1' => {
+    'asg-app' => 'cap-asg-production-app-server-private-asg-lc-1501619456'
+  },
+  'eu-west-1' => {
+    'asg-app' => 'cap-asg-production-app-server-private-asg-lc-1501619454'
+  }
+}
+```
+
 That's it! Run `cap production deploy`. The following log statements are printed
 during deployment:
 
