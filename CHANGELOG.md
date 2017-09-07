@@ -1,6 +1,10 @@
-# 0.5.3
+# 0.5.4
 
 * Fix a small bug caused by a typo
+
+# 0.5.3
+
+* Add support to access ID(s) for new AMI(s) created by capistrano-asg
 
 # 0.5.2
 
