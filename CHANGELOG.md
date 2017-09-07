@@ -1,3 +1,7 @@
+# 0.5.3
+
+* Fix a small bug caused by a typo
+
 # 0.5.2
 
 * Run after deploy:finishing instead of after deploy
