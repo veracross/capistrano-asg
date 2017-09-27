@@ -30,7 +30,7 @@ module Capistrano
       end
 
       def timestamp(str)
-        "#{str}-#{Time.now.to_i}"
+        "#{str}-#{Time.now.utc.to_i}"
       end
 
       def deployed_with_asg?(resource)

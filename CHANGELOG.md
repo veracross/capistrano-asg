@@ -1,3 +1,8 @@
+# 0.5.5
+
+* Support setting name prefixes for newly created launch configurations and AMIs
+* Use UTC for the timestamps in names
+
 # 0.5.4
 
 * Fix a small bug caused by a typo
@@ -18,6 +23,6 @@
 # 0.5.0
 
 * Forked from capistrano-elbas
-  * renamed capistrano-asg and released as a new gem
-  * Updated with modern aws sdk
-  * Added support for multiple regions
+* renamed capistrano-asg and released as a new gem
+* Updated with modern aws sdk
+* Added support for multiple regions

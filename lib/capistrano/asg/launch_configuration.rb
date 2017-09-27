@@ -46,7 +46,7 @@ module Capistrano
       private
 
       def name
-        timestamp "cap-asg-#{environment}-#{autoscaling_group_name}-lc"
+        timestamp fetch(:aws_lc_name_prefix, "cap-asg-#{environment}-#{autoscaling_group_name}-lc")
       end
 
       def instance_size

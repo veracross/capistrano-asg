@@ -35,7 +35,7 @@ module Capistrano
       private
 
       def name
-        timestamp "latest-#{environment}-AMI"
+        timestamp fetch(:aws_ami_name_prefix, "latest-#{environment}-AMI")
       end
 
       def trash
