@@ -30,11 +30,14 @@ set :aws_access_key_id,     ENV['AWS_ACCESS_KEY_ID']
 set :aws_secret_access_key, ENV['AWS_SECRET_ACCESS_KEY']
 set :aws_region,            ENV['AWS_REGION']
 
-set :aws_no_reboot_on_create_ami, true
-set :aws_autoscale_instance_size, 'm1.small'
+# To set region specific things:
+set ENV['AWS_REGION'].to_sym, {
+  aws_no_reboot_on_create_ami: true,
+  aws_autoscale_instance_size: 'm1.small',
+  aws_launch_configuration_detailed_instance_monitoring: true,
+  aws_launch_configuration_associate_public_ip: true
+}
 
-set :aws_launch_configuration_detailed_instance_monitoring, true
-set :aws_launch_configuration_associate_public_ip, true
 ```
 
 ## Usage
@@ -61,6 +64,9 @@ regions = %w(us-east-1 eu-west-1)
 
 regions.each do |region|
   set :aws_region, region
+  set region.to_sym, {
+    aws_autoscale_instance_size: 't2.medium'
+  }
   autoscale 'production', user: 'apps', roles: [:app, :web, :db]
 end
 ```

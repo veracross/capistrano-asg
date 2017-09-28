@@ -2,12 +2,18 @@ module Capistrano
   module Asg
     # Create launch configuration
     class LaunchConfiguration < AWSResource
-      def self.create(ami, &_block)
-        lc = new
+      attr_reader :region_config
+
+      def self.create(ami, region_config, &_block)
+        lc = new(region_config)
         lc.cleanup do
           lc.save(ami)
           yield lc
         end
+      end
+
+      def initialize(region_config = {})
+        @region_config = region_config
       end
 
       def save(ami)
@@ -19,12 +25,11 @@ module Capistrano
             image_id: ami.aws_counterpart.id,
             instance_type: instance_size,
             security_groups: ec2_instance.security_groups.map(&:group_id),
-            associate_public_ip_address:
-              fetch(:aws_launch_configuration_associate_public_ip, true),
+            associate_public_ip_address: region_config.fetch(:aws_launch_configuration_associate_public_ip, true),
             instance_monitoring: {
               enabled: fetch(:aws_launch_configuration_detailed_instance_monitoring, true)
             },
-            user_data: fetch(:aws_launch_configuration_user_data, nil)
+            user_data: region_config.fetch(:aws_launch_configuration_user_data, nil)
           )
         end
       end
@@ -46,15 +51,15 @@ module Capistrano
       private
 
       def name
-        timestamp fetch(:aws_lc_name_prefix, "cap-asg-#{environment}-#{autoscaling_group_name}-lc")
+        timestamp region_config.fetch(:aws_lc_name_prefix, "cap-asg-#{environment}-#{autoscaling_group_name}-lc")
       end
 
       def instance_size
-        fetch(:aws_autoscale_instance_size, 'm1.small')
+        region_config.fetch(:aws_autoscale_instance_size, 'm1.small')
       end
 
       def deployed_with_asg?(lc)
-        lc.name.include? "cap-asg-#{environment}-#{autoscaling_group_name}-lc"
+        lc.name.include? region_config.fetch(:aws_lc_name_prefix, "cap-asg-#{environment}-#{autoscaling_group_name}-lc")
       end
 
       def trash
