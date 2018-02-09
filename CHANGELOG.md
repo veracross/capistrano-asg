@@ -1,3 +1,6 @@
+# 0.6.1
+
+* Provide a way to bypass new AMI/LC generation by setting `set :create_ami, false`.
 # 0.6.0
 
 * Breaking change/bug fix: Region-specific settings were not being preserved. A
