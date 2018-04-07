@@ -4,7 +4,7 @@ module Capistrano
     class LaunchConfiguration < AWSResource
       attr_reader :region_config
 
-      def self.create(ami, region_config, &_block)
+      def self.create(ami, region_config = {}, &_block)
         lc = new(region_config)
         lc.cleanup do
           lc.save(ami)
