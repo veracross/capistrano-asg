@@ -1,4 +1,5 @@
-require 'aws-sdk'
+require 'aws-sdk-ec2'
+require 'aws-sdk-autoscaling'
 require 'capistrano/all'
 require 'active_support/concern'
 
@@ -7,6 +8,7 @@ require 'capistrano/asg/retryable'
 require 'capistrano/asg/taggable'
 require 'capistrano/asg/logger'
 require 'capistrano/asg/aws/credentials'
+require 'capistrano/asg/aws/region'
 require 'capistrano/asg/aws/autoscaling'
 require 'capistrano/asg/aws/ec2'
 require 'capistrano/asg/aws_resource'
@@ -18,7 +20,6 @@ module Capistrano
   end
 end
 
-require 'aws-sdk'
 require 'capistrano/dsl'
 
 load File.expand_path('../asg/tasks/asg.rake', __FILE__)
@@ -28,6 +29,7 @@ def autoscale(groupname, *args)
   include Capistrano::Asg::Aws::AutoScaling
   include Capistrano::Asg::Aws::EC2
 
+  connect_via = args[0].delete(:connect_via) || :private_ip_address
   autoscaling_group = autoscaling_resource.group(groupname)
   asg_instances = autoscaling_group.instances
 
@@ -42,7 +44,7 @@ def autoscale(groupname, *args)
       puts "Autoscaling: Skipping unhealthy instance #{asg_instance.id}"
     else
       ec2_instance = ec2_resource.instance(asg_instance.id)
-      hostname = ec2_instance.private_ip_address
+      hostname = ec2_instance.send(connect_via.to_sym)
       puts "Autoscaling: Adding server #{hostname}"
       server(hostname, *args)
     end
