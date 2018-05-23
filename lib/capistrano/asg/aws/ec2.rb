@@ -7,6 +7,7 @@ module Capistrano
       module EC2
         extend ActiveSupport::Concern
         include Credentials
+        include Region
         include Capistrano::DSL
 
         def ec2_resource
@@ -20,7 +21,7 @@ module Capistrano
         private
 
         def ec2_client
-          ::Aws::EC2::Client.new(credentials)
+          ::Aws::EC2::Client.new(region: region, credentials: credentials)
         end
       end
     end

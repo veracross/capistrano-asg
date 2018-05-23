@@ -8,6 +8,7 @@ require 'capistrano/asg/retryable'
 require 'capistrano/asg/taggable'
 require 'capistrano/asg/logger'
 require 'capistrano/asg/aws/credentials'
+require 'capistrano/asg/aws/region'
 require 'capistrano/asg/aws/autoscaling'
 require 'capistrano/asg/aws/ec2'
 require 'capistrano/asg/aws_resource'
@@ -27,7 +28,7 @@ def autoscale(groupname, *args)
   include Capistrano::DSL
   include Capistrano::Asg::Aws::AutoScaling
   include Capistrano::Asg::Aws::EC2
-  
+
   connect_via = args[0].delete(:connect_via) || :private_ip_address
   autoscaling_group = autoscaling_resource.group(groupname)
   asg_instances = autoscaling_group.instances
