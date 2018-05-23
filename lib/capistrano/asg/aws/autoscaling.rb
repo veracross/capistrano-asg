@@ -7,10 +7,11 @@ module Capistrano
       module AutoScaling
         extend ActiveSupport::Concern
         include Credentials
+        include Region
         include Capistrano::DSL
 
         def autoscaling_client
-          @_autoscaling_client ||= ::Aws::AutoScaling::Client.new(credentials)
+          @_autoscaling_client ||= ::Aws::AutoScaling::Client.new(region: region, credentials: credentials)
         end
 
         def autoscaling_resource
