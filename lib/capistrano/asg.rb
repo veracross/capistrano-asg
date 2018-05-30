@@ -1,4 +1,5 @@
-require 'aws-sdk'
+require 'aws-sdk-ec2'
+require 'aws-sdk-autoscaling'
 require 'capistrano/all'
 require 'active_support/concern'
 
@@ -18,7 +19,6 @@ module Capistrano
   end
 end
 
-require 'aws-sdk'
 require 'capistrano/dsl'
 
 load File.expand_path('../asg/tasks/asg.rake', __FILE__)
