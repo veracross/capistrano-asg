@@ -2,14 +2,17 @@ language: ruby
 cache: bundler
 rvm:
 - 2.3.3
-- 2.4.1
+- 2.4.3
+- 2.5.1
 sudo: false
 env:
   - AWS_REGION: us-west-2
+  - AWS_ACCESS_KEY_ID: AK123456789
+  - AWS_SECRET_ACCESS_KEY: abcdefg123456
 deploy:
   provider: rubygems
   gem:
     master: capistrano-asg
   on:
-    repo: sixfeetover/capistrano-asg
+    repo: veracross/capistrano-asg
     branch: master
