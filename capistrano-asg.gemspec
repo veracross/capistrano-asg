@@ -26,7 +26,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock'
   spec.add_development_dependency 'byebug'
 
-  spec.add_dependency 'aws-sdk', '~> 2'
+  spec.add_dependency 'aws-sdk-ec2', '~> 1'
+  spec.add_dependency 'aws-sdk-autoscaling', '~> 1'
   spec.add_dependency 'capistrano', '> 3.0.0'
   spec.add_dependency 'activesupport', '>= 4.0.0'
 end
