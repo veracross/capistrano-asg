@@ -19,6 +19,7 @@ module Capistrano
       def save(ami)
         info "Creating an EC2 Launch Configuration for AMI: #{ami.aws_counterpart.id}"
         ec2_instance = ec2_resource.instance(base_ec2_instance.id)
+
         with_retry do
           @aws_counterpart = autoscaling_resource.create_launch_configuration(
             launch_configuration_name: name,
@@ -29,7 +30,8 @@ module Capistrano
             instance_monitoring: {
               enabled: fetch(:aws_launch_configuration_detailed_instance_monitoring, true)
             },
-            user_data: region_config.fetch(:aws_launch_configuration_user_data, nil)
+            user_data: region_config.fetch(:aws_launch_configuration_user_data, nil),
+            iam_instance_profile: ec2_instance.iam_instance_profile.arn
           )
         end
       end
