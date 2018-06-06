@@ -1,6 +1,12 @@
+# 0.7.0
+
+* Update to AWS SDK v3. Thanks @jpatters and @milgner
+* Set iam_instance_profile on newly created launch configurations
+
 # 0.6.1
 
 * Provide a way to bypass new AMI/LC generation by setting `set :create_ami, false`.
+
 # 0.6.0
 
 * Breaking change/bug fix: Region-specific settings were not being preserved. A
