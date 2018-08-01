@@ -50,7 +50,7 @@ def autoscale(groupname, *args)
   end
 
   if asg_instances.count > 0 && fetch(:create_ami, true)
-    after('deploy:finishing', 'asg:scale')
+    after('deploy:finished', 'asg:scale')
   else
     puts 'Autoscaling: AMI could not be created because no running instances were found.\
       Is your autoscale group name correct?'
