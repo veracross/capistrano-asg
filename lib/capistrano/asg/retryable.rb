@@ -11,6 +11,8 @@ module Capistrano
           puts "Retrying in #{delay} seconds..."
           sleep delay
           retry
+        else
+          raise e.message
         end
       end
     end

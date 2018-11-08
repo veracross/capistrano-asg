@@ -18,9 +18,9 @@ module Capistrano
 
       def save(ami)
         info "Creating an EC2 Launch Configuration for AMI: #{ami.aws_counterpart.id}"
-        ec2_instance = ec2_resource.instance(base_ec2_instance.id)
 
         with_retry do
+          ec2_instance = ec2_resource.instance(base_ec2_instance.id)
           @aws_counterpart = autoscaling_resource.create_launch_configuration(
             launch_configuration_name: name,
             image_id: ami.aws_counterpart.id,

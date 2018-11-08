@@ -16,11 +16,13 @@ module Capistrano
 
       def save
         info "Creating EC2 AMI from EC2 Instance: #{base_ec2_instance.id}"
-        ec2_instance = ec2_resource.instance(base_ec2_instance.id)
-        @aws_counterpart = ec2_instance.create_image(
-          name: name,
-          no_reboot: fetch(:aws_no_reboot_on_create_ami, true)
-        )
+        with_retry do
+          ec2_instance = ec2_resource.instance(base_ec2_instance.id)
+          @aws_counterpart = ec2_instance.create_image(
+            name: name,
+            no_reboot: fetch(:aws_no_reboot_on_create_ami, true)
+          )
+        end
       end
 
       def destroy(images = [])
@@ -39,20 +41,26 @@ module Capistrano
       end
 
       def trash
-        ec2_resource.images(owners: ['self']).to_a.select do |ami|
-          deployed_with_asg? ami
+        with_retry do
+          ec2_resource.images(owners: ['self']).to_a.select do |ami|
+            deployed_with_asg? ami
+          end
         end
       end
 
       def snapshots_attached_to(image)
         ids = image.block_device_mappings.map(&:ebs).compact.map(&:snapshot_id)
-        ec2_resource.snapshots(snapshot_ids: ids)
+        with_retry do
+          ec2_resource.snapshots(snapshot_ids: ids)
+        end
       end
 
       def delete_snapshots(snapshots)
         snapshots.each do |snapshot|
           info "Deleting snapshot: #{snapshot.id}"
-          snapshot.delete unless snapshot.nil?
+          with_retry do
+            snapshot.delete unless snapshot.nil?
+          end
         end
       end
     end

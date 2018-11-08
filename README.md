@@ -71,6 +71,16 @@ regions.each do |region|
 end
 ```
 
+If you want to specify roles for a subset of instances in the autoscaling group, you can use
+`:partial_roles`.  These will be spread out 1 per server:
+ ```ruby
+autoscale 'asg-app', user: 'apps', roles: [:app, :web],
+  partial_roles: [
+    { name: :migrate, instances: 1 },
+    { name: :sidekiq, instances: 2 }
+  ]
+```
+
 The name of the newly created launch configurations are available via `fetch(:asg_launch_config)`.
 This is a two-dimensional hash with region and autoscaling group name as keys.
 You can output these or store them as necessary in an `after 'deploy:finished'` hook.
