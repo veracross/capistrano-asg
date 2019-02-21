@@ -1,3 +1,16 @@
+# 0.8.0
+**Breaking Change**
+* Change name of the configuration options hash to include both the AWS region and
+  the ASG name. To use:
+
+```ruby
+set "#{region}_#{asg}".to_sym, {
+  ...
+}
+```
+
+See the README for more details.
+
 # 0.7.0
 
 * Update to AWS SDK v3. Thanks @jpatters and @milgner
