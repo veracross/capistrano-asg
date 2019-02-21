@@ -31,7 +31,7 @@ set :aws_secret_access_key, ENV['AWS_SECRET_ACCESS_KEY']
 set :aws_region,            ENV['AWS_REGION']
 
 # To set region specific things:
-set ENV['AWS_REGION'].to_sym, {
+set "#{ENV['AWS_REGION']}_#{asg}".to_sym, {
   aws_no_reboot_on_create_ami: true,
   aws_autoscale_instance_size: 'm1.small',
   aws_launch_configuration_detailed_instance_monitoring: true,
@@ -39,6 +39,8 @@ set ENV['AWS_REGION'].to_sym, {
 }
 
 ```
+
+where `asg` is the name of the autoscaling group in the given region.
 
 ## Usage
 
@@ -57,17 +59,21 @@ autoscale 'asg-app', user: 'apps', roles: [:app, :web]
 autoscale 'asg-db', user: 'apps', roles: [:db]
 ```
 
-Similarly, if you are deploying to multiple regions:
+Similarly, if you are deploying to multiple regions and/or multiple ASGs:
 
 ```ruby
+asgs    = %w(asg1 asg2)
 regions = %w(us-east-1 eu-west-1)
 
-regions.each do |region|
-  set :aws_region, region
-  set region.to_sym, {
-    aws_autoscale_instance_size: 't2.medium'
-  }
-  autoscale 'production', user: 'apps', roles: [:app, :web, :db]
+asgs.each do |asg|
+  regions.each do |region|
+    set :aws_region, region
+    set "#{region}_#{asg}".to_sym, {
+      aws_autoscale_instance_size: 't2.medium'
+      ...
+    }
+    autoscale asg, user: 'apps', roles: [:app, :web, :db]
+  end
 end
 ```
 
