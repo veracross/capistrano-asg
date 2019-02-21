@@ -1,5 +1,5 @@
-# 0.7.1
-
+# 0.8.0
+**Breaking Change**
 * Change name of the configuration options hash to include both the AWS region and
   the ASG name. To use:
 
