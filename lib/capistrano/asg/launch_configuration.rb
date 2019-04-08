@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Capistrano
   module Asg
     # Create launch configuration
@@ -57,11 +59,11 @@ module Capistrano
       end
 
       def instance_size
-        region_config.fetch(:aws_autoscale_instance_size, 'm1.small')
+        region_config.fetch(:aws_autoscale_instance_size, "m1.small")
       end
 
-      def deployed_with_asg?(lc)
-        lc.name.include? region_config.fetch(:aws_lc_name_prefix, "cap-asg-#{environment}-#{autoscaling_group_name}-lc")
+      def deployed_with_asg?(launch_config)
+        launch_config.name.include? region_config.fetch(:aws_lc_name_prefix, "cap-asg-#{environment}-#{autoscaling_group_name}-lc")
       end
 
       def trash

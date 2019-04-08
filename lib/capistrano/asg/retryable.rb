@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Capistrano
   module Asg
     module Retryable
@@ -5,15 +7,13 @@ module Capistrano
         tries ||= 0
         tries += 1
         yield
-      rescue => e
+      rescue StandardError => e
+        raise e.message if tries < max
+
         puts "Rescued #{e.message}"
-        if tries < max
-          puts "Retrying in #{delay} seconds..."
-          sleep delay
-          retry
-        else
-          raise e.message
-        end
+        puts "Retrying in #{delay} seconds..."
+        sleep delay
+        retry
       end
     end
   end

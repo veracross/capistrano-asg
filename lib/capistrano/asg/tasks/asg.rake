@@ -1,9 +1,9 @@
-require 'capistrano/asg'
+# frozen_string_literal: true
+
+require "capistrano/asg"
 
 namespace :asg do
   task :scale do
-    set :aws_access_key_id,     fetch(:aws_access_key_id,     ENV['AWS_ACCESS_KEY_ID'])
-    set :aws_secret_access_key, fetch(:aws_secret_access_key, ENV['AWS_SECRET_ACCESS_KEY'])
     asg_launch_config = {}
     asg_ami_id = {}
 

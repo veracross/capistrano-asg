@@ -10,15 +10,15 @@ module Capistrano
         include Capistrano::DSL
 
         def autoscaling_client
-          @_autoscaling_client ||= ::Aws::AutoScaling::Client.new(region: region)
+          @autoscaling_client ||= ::Aws::AutoScaling::Client.new(region: region)
         end
 
         def autoscaling_resource
-          @_autoscaling_resource ||= ::Aws::AutoScaling::Resource.new(client: autoscaling_client)
+          @autoscaling_resource ||= ::Aws::AutoScaling::Resource.new(client: autoscaling_client)
         end
 
         def autoscaling_group
-          @_autoscaling_group ||= autoscaling_resource.group(autoscaling_group_name)
+          @autoscaling_group ||= autoscaling_resource.group(autoscaling_group_name)
         end
 
         def autoscaling_group_name
@@ -26,9 +26,9 @@ module Capistrano
         end
 
         def reset_autoscaling_objects
-          @_autoscaling_client = nil
-          @_autoscaling_resource = nil
-          @_autoscaling_group = nil
+          @autoscaling_client = nil
+          @autoscaling_resource = nil
+          @autoscaling_group = nil
         end
       end
     end

@@ -1,0 +1,52 @@
+---
+inherit_gem:
+  dox-style:
+  - ".rubocop.yml"
+
+Env/OutsideConfig:
+  Exclude:
+    - "./tasks/ci.rake"
+
+Env/UndefinedVar:
+  Exclude:
+    - "./tasks/ci.rake"
+
+Metrics/BlockLength:
+  Exclude:
+    - "./*.gemspec"
+    - "./tasks/ci.rake"
+    - "./spec/*"
+
+Env/UseFetch:
+  Exclude:
+    - "./bin/*"
+
+Env/OutsideConfig:
+  Enabled: false
+
+Env/UseFetch:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Rails/Output:
+  Enabled: false
+
+Style/MixinUsage:
+  Enabled: false

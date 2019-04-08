@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Capistrano
   module Asg
     # Extend AWS Resource class to include AMI methods
@@ -8,8 +10,8 @@ module Capistrano
         ami = new
         ami.cleanup do
           ami.save
-          ami.tag 'deployed-with' => 'cap-asg'
-          ami.tag 'cap-asg-deploy-group' => ami.autoscaling_group_name
+          ami.tag "deployed-with" => "cap-asg"
+          ami.tag "cap-asg-deploy-group" => ami.autoscaling_group_name
           yield ami
         end
       end
@@ -42,7 +44,7 @@ module Capistrano
 
       def trash
         with_retry do
-          ec2_resource.images(owners: ['self']).to_a.select do |ami|
+          ec2_resource.images(owners: ["self"]).to_a.select do |ami|
             deployed_with_asg? ami
           end
         end
@@ -59,7 +61,7 @@ module Capistrano
         snapshots.each do |snapshot|
           info "Deleting snapshot: #{snapshot.id}"
           with_retry do
-            snapshot.delete unless snapshot.nil?
+            snapshot&.delete
           end
         end
       end

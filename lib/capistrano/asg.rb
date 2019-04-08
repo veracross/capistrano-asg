@@ -1,27 +1,29 @@
-require 'aws-sdk-ec2'
-require 'aws-sdk-autoscaling'
-require 'capistrano/all'
-require 'active_support/concern'
+# frozen_string_literal: true
 
-require 'capistrano/asg/version'
-require 'capistrano/asg/retryable'
-require 'capistrano/asg/taggable'
-require 'capistrano/asg/logger'
-require 'capistrano/asg/aws/region'
-require 'capistrano/asg/aws/autoscaling'
-require 'capistrano/asg/aws/ec2'
-require 'capistrano/asg/aws_resource'
-require 'capistrano/asg/ami'
-require 'capistrano/asg/launch_configuration'
+require "aws-sdk-ec2"
+require "aws-sdk-autoscaling"
+require "capistrano/all"
+require "active_support/concern"
+
+require "capistrano/asg/version"
+require "capistrano/asg/retryable"
+require "capistrano/asg/taggable"
+require "capistrano/asg/logger"
+require "capistrano/asg/aws/region"
+require "capistrano/asg/aws/autoscaling"
+require "capistrano/asg/aws/ec2"
+require "capistrano/asg/aws_resource"
+require "capistrano/asg/ami"
+require "capistrano/asg/launch_configuration"
 
 module Capistrano
   module Asg
   end
 end
 
-require 'capistrano/dsl'
+require "capistrano/dsl"
 
-load File.expand_path('../asg/tasks/asg.rake', __FILE__)
+load File.expand_path("asg/tasks/asg.rake", __dir__)
 
 def autoscale(groupname, roles: [], partial_roles: [], **args)
   include Capistrano::DSL
@@ -46,7 +48,7 @@ def autoscale(groupname, roles: [], partial_roles: [], **args)
   end
 
   asg_instances.each do |asg_instance|
-    if asg_instance.health_status != 'Healthy'
+    if asg_instance.health_status != "Healthy"
       puts "Autoscaling: Skipping unhealthy instance #{asg_instance.id}"
     else
       with_retry do
@@ -54,7 +56,7 @@ def autoscale(groupname, roles: [], partial_roles: [], **args)
         hostname = ec2_instance.private_ip_address
         puts "Autoscaling: Adding server #{hostname}"
         host_roles = roles.dup
-        if additional_role = partial_queue.shift
+        if (additional_role = partial_queue.shift)
           host_roles << additional_role
         end
         server(hostname, roles: host_roles, **args)
@@ -65,8 +67,8 @@ def autoscale(groupname, roles: [], partial_roles: [], **args)
   puts "WARNING: Not all partial roles were assigned: #{partial_queue}" unless partial_queue.empty?
 
   if fetch(:create_ami, true)
-    if asg_instances.count > 0
-      after('deploy:finishing', 'asg:scale')
+    if asg_instances.count.positive?
+      after("deploy:finishing", "asg:scale")
     else
       puts 'Autoscaling: AMI could not be created because no running instances were found.\
         Is your autoscale group name correct?'

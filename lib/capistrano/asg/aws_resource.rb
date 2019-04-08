@@ -26,7 +26,7 @@ module Capistrano
       end
 
       def environment
-        fetch(:rails_env, 'production')
+        fetch(:rails_env, "production")
       end
 
       def timestamp(str)
@@ -35,8 +35,9 @@ module Capistrano
 
       def deployed_with_asg?(resource)
         return false if resource.tags.empty?
-        resource.tags.any? { |k| k.key == 'deployed-with' && k.value == 'cap-asg' } &&
-          resource.tags.any? { |k| k.key == 'cap-asg-deploy-group' && k.value == autoscaling_group_name }
+
+        resource.tags.any? { |k| k.key == "deployed-with" && k.value == "cap-asg" } &&
+          resource.tags.any? { |k| k.key == "cap-asg-deploy-group" && k.value == autoscaling_group_name }
       end
     end
   end

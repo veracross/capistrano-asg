@@ -8,7 +8,7 @@ module Capistrano
         include Capistrano::DSL
 
         def region
-          fetch(:aws_region, ENV['AWS_REGION'])
+          fetch(:aws_region, ENV["AWS_REGION"])
         end
       end
     end

@@ -1,7 +1,6 @@
 bin/
-*.gem
+/*.gem
 *.rbc
-/Gemfile.lock
 .bundle
 .config
 .yardoc
