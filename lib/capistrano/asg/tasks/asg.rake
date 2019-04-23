@@ -17,7 +17,7 @@ namespace :asg do
       # Iterate over relevant ASGs
       regions[region].each do |asg|
         set :aws_autoscale_group, asg
-        Capistrano::Asg::AMI.create do |ami|
+        Capistrano::Asg::AMI.create(fetch(region.to_sym, {})) do |ami|
           puts "Autoscaling: Created AMI: #{ami.aws_counterpart.id} from region #{region} in ASG #{asg}"
           Capistrano::Asg::LaunchConfiguration.create(ami, fetch("#{region}_#{asg}".to_sym, {})) do |lc|
             puts "Autoscaling: Created Launch Configuration: #{lc.aws_counterpart.name} from region #{region} in ASG #{asg}"

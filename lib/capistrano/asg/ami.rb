@@ -2,10 +2,11 @@ module Capistrano
   module Asg
     # Extend AWS Resource class to include AMI methods
     class AMI < AWSResource
+      attr_reader :region_config
       include Taggable
 
-      def self.create(&_block)
-        ami = new
+      def self.create(region_config = {}, &_block)
+        ami = new(region_config)
         ami.cleanup do
           ami.save
           ami.tag 'deployed-with' => 'cap-asg'
@@ -14,12 +15,16 @@ module Capistrano
         end
       end
 
+      def initialize(region_config = {})
+        @region_config = region_config
+      end
+
       def save
         info "Creating EC2 AMI from EC2 Instance: #{base_ec2_instance.id}"
         ec2_instance = ec2_resource.instance(base_ec2_instance.id)
         @aws_counterpart = ec2_instance.create_image(
           name: name,
-          no_reboot: fetch(:aws_no_reboot_on_create_ami, true)
+          no_reboot: region_config.fetch(:aws_no_reboot_on_create_ami, true)
         )
       end
 
@@ -35,7 +40,7 @@ module Capistrano
       private
 
       def name
-        timestamp fetch(:aws_ami_name_prefix, "latest-#{environment}-AMI")
+        timestamp region_config.fetch(:aws_ami_name_prefix, "latest-#{environment}-AMI")
       end
 
       def trash
