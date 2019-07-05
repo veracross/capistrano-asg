@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.9.1
+
+* Check the lifecycle state before including an instance
+
 ## 0.9.0
 
 * Publish to jfrog with rubocop updates

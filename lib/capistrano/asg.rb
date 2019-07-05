@@ -50,6 +50,8 @@ def autoscale(groupname, roles: [], partial_roles: [], **args)
   asg_instances.each do |asg_instance|
     if asg_instance.health_status != "Healthy"
       puts "Autoscaling: Skipping unhealthy instance #{asg_instance.id}"
+    elsif asg_instance.lifecycle_state != "InService"
+      puts "Autoscaling: Skipping #{asg_instance.id}, lifecycle state is #{asg_instance.lifecycle_state}"
     else
       with_retry do
         ec2_instance = ec2_resource.instance(asg_instance.id)
