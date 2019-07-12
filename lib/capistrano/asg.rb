@@ -47,6 +47,7 @@ def autoscale(groupname, roles: [], partial_roles: [], **args)
     instances.times { partial_queue << partial[:name].to_s }
   end
 
+  roles << "autoscale"
   asg_instances.each do |asg_instance|
     if asg_instance.health_status != "Healthy"
       puts "Autoscaling: Skipping unhealthy instance #{asg_instance.id}"

@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.9.2
+
+* Add an autoscale role
+
 ## 0.9.1
 
 * Check the lifecycle state before including an instance
