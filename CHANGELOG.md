@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.9.3
+
+* Update the activesupport dependency, 6.0 requires ruby 2.5
+
 ## 0.9.2
 
 * Add an autoscale role
