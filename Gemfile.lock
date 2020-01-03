@@ -1,14 +1,14 @@
 PATH
   remote: .
   specs:
-    capistrano-asg (0.9.3)
+    capistrano-asg (0.9.4.jmonteiro1)
       activesupport (~> 5.2)
       aws-sdk-autoscaling (~> 1)
       aws-sdk-ec2 (~> 1)
       capistrano (> 3.0.0)
 
 GEM
-  remote: https://rubygems.org/
+  remote: https://artifacts.dox.support/repository/gems/
   specs:
     activesupport (5.2.3)
       concurrent-ruby (~> 1.0, >= 1.0.2)
@@ -109,7 +109,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.6)
+  bundler (>= 1.7)
   byebug
   capistrano-asg!
   dox-style
