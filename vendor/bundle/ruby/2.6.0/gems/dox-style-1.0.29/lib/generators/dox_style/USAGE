@@ -1,0 +1,8 @@
+Description:
+    Create or append to .rubocop.yml the lines used to inherit dox-style
+
+Example:
+    rails g dox_style
+
+    This will add or append:
+        .rubocop.yml

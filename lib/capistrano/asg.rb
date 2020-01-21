@@ -18,9 +18,8 @@ require "capistrano/asg/launch_configuration"
 
 module Capistrano
   module Asg
+    class EmptyAutoscalingGroup < StandardError; end
   end
-
-  class EmptyAutoscalingGroup < Error; end
 end
 
 require "capistrano/dsl"
@@ -38,7 +37,7 @@ def autoscale(groupname, roles: [], partial_roles: [], **args)
 
   if asg_instances.count.zero?
     puts "Autoscaling group has no instances"
-    raise EmptyAutoscalingGroup
+    raise Capistrano::Asg::EmptyAutoscalingGroup
   end
 
   set :aws_autoscale_group, groupname

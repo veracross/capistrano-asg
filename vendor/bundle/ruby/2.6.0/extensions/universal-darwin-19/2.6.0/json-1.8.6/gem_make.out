@@ -1,0 +1,13 @@
+current directory: /Users/greg/development/gems/capistrano-asg/vendor/bundle/ruby/2.6.0/gems/json-1.8.6/ext/json
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/bin/ruby -I /System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0 -r ./siteconf20200121-1662-1rmrb6p.rb extconf.rb
+creating Makefile
+
+current directory: /Users/greg/development/gems/capistrano-asg/vendor/bundle/ruby/2.6.0/gems/json-1.8.6/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/greg/development/gems/capistrano-asg/vendor/bundle/ruby/2.6.0/gems/json-1.8.6/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/greg/development/gems/capistrano-asg/vendor/bundle/ruby/2.6.0/gems/json-1.8.6/ext/json
+make "DESTDIR=" install

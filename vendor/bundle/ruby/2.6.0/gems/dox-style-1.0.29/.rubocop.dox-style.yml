@@ -1,0 +1,21 @@
+# This file is used on dox-style's own project. We have it separately in order to avoid making an exclusion on all
+# projects using this gem.
+
+inherit_from: .rubocop.yml
+
+Metrics/BlockLength:
+  Exclude:
+    - ./**/*_spec*.rb
+    - ./*.gemspec
+
+Env/OutsideConfig:
+  Exclude:
+    - ./tasks/*.rake
+
+Env/UndefinedVar:
+  Exclude:
+    - ./tasks/*.rake
+
+Env/UseFetch:
+  Exclude:
+    - ./bin/*

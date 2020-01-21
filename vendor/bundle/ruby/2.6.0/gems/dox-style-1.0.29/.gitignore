@@ -1,0 +1,11 @@
+.rspec_status
+/*.gem
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+/vendor/bundle/
