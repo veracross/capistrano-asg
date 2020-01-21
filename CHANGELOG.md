@@ -1,6 +1,9 @@
 Changelog
 =========
 
+## 0.10.0
+* Raise error if autoscaling group has no healthy instances
+
 ## 0.9.3
 
 * Update the activesupport dependency, 6.0 requires ruby 2.5
