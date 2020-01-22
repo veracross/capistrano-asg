@@ -8,7 +8,7 @@ PATH
       capistrano (> 3.0.0)
 
 GEM
-  remote: https://rubygems.org/
+  remote: https://artifacts.dox.support/repository/gems/
   specs:
     activesupport (5.2.4.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
@@ -109,7 +109,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.6)
+  bundler (>= 1.7)
   byebug
   capistrano-asg!
   dox-style
