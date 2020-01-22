@@ -1,13 +1,15 @@
 version: 2.1
 
 orbs:
-  gem: doximity/gem-publisher@0.0.5
+  gem: doximity/gem-publisher@0
 
 executors:
   ruby-latest:
     resource_class: small
     docker:
       - image: circleci/ruby:latest
+        environment:
+          BUNDLE_VERSION: "~> 1.17"
 
 # yaml anchor filters
 master_only: &master_only
@@ -34,6 +36,10 @@ jobs:
     executor: ruby-latest
     steps:
       - checkout
+      - run:
+          name: Install Bundler specific version
+          command: |
+            gem install bundler --version "${BUNDLE_VERSION}" --force
       - restore_cache:
           keys:
             - v1-bundle-{{ checksum "Gemfile.lock" }}-
@@ -53,9 +59,6 @@ jobs:
       - run:
           name: Run Rubocop
           command: bundle exec rake ci:rubocop
-      - run:
-          name: Build documentation
-          command: bundle exec rake ci:doc
       - store_artifacts:
           name: Saves documentation
           path: doc
@@ -72,6 +75,7 @@ workflows:
       - build:
           <<: *pr_only
       - gem/build:
+          executor: ruby-latest
           requires:
             - build
       - pre-release-approval:
@@ -79,7 +83,7 @@ workflows:
           requires:
             - gem/build
       - gem/publish:
-          to_jfrog: true
+          to_nexus: true
           pre_release: true
           requires:
             - pre-release-approval
@@ -90,6 +94,7 @@ workflows:
       - build:
           <<: *master_only
       - gem/build:
+          executor: ruby-latest
           requires:
             - build
 
@@ -99,11 +104,12 @@ workflows:
           <<: *version_tags_only
       - gem/build:
           <<: *version_tags_only
+          executor: ruby-latest
           requires:
             - build
       - gem/publish:
           <<: *version_tags_only
-          to_jfrog: true
+          to_nexus: true
           pre_release: false
           requires:
             - gem/build

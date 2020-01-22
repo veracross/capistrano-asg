@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.9.4 01/02/2020
+
+* Publish gem on Nexus, and fetch gems from Nexus
+
 ## 0.9.3
 
 * Update the activesupport dependency, 6.0 requires ruby 2.5
