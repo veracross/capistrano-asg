@@ -3,7 +3,7 @@ Changelog
 
 ## 0.9.4.jmonteiro1 01/02/2020
 
-  * Publish gem on Nexus, and fetch gems from Nexus
+* Publish gem on Nexus, and fetch gems from Nexus
 
 ## 0.9.3
 
