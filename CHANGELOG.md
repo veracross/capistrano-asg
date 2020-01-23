@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.10.0
+
+* Raise error if autoscaling group has no healthy instances
+
 ## 0.9.4 01/02/2020
 
 * Publish gem on Nexus, and fetch gems from Nexus
