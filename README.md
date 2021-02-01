@@ -106,3 +106,4 @@ Autoscaling: Attaching Launch Configuration to AutoScale Group
 Autoscaling: Deleting old launch configuration: cap-asg-lc-production-123456
 Autoscaling: Deleting old image: ami-999999
 ```
+
