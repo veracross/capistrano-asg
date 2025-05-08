@@ -1,3 +1,7 @@
+# 0.8.1
+
+* update development dependency `bundler` to minimum version `2.0.0`
+
 # 0.8.0
 **Breaking Change**
 * Change name of the configuration options hash to include both the AWS region and

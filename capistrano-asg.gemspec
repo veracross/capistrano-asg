@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['logan.serman@metova.com', 'jeff.fraser@veracross.com', 'michael.martell@veracross.com']
   spec.summary       = 'Capistrano plugin for deploying to AWS AutoScale Groups.'
   spec.description   = "#{spec.summary} Deploys to all instances in a group, creates a fresh AMI post-deploy, and attaches the AMI to your AutoScale Group."
-  spec.homepage      = 'http://github.com/sixfeetover/capistrano-asg'
+  spec.homepage      = 'http://github.com/veracross/capistrano-asg'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler', '~> 1.6'
+  spec.add_development_dependency 'bundler', '>= 2.0.0'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'webmock'
