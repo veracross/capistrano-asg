@@ -28,7 +28,8 @@ def autoscale(groupname, *args)
   include Capistrano::DSL
   include Capistrano::Asg::Aws::AutoScaling
   include Capistrano::Asg::Aws::EC2
-
+  
+  connect_via = args[0].delete(:connect_via) || :private_ip_address
   autoscaling_group = autoscaling_resource.group(groupname)
   asg_instances = autoscaling_group.instances
 
@@ -43,7 +44,7 @@ def autoscale(groupname, *args)
       puts "Autoscaling: Skipping unhealthy instance #{asg_instance.id}"
     else
       ec2_instance = ec2_resource.instance(asg_instance.id)
-      hostname = ec2_instance.private_ip_address
+      hostname = ec2_instance.send(connect_via.to_sym)
       puts "Autoscaling: Adding server #{hostname}"
       server(hostname, *args)
     end
